@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <!-- Load Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Results</h1>
+    <p>Accuracy: {{ accuracy }}</p>
+    <p>Classification Report:</p>
+    <pre>{{ classification_rep }}</pre>
+    <p>Number of Human-generated Reviews: {{ human_reviews_count }}</p>
+    <p>Number of Computer-generated Reviews: {{ computer_reviews_count }}</p>
+
+    <!-- Add a container for the plot -->
+    <div id="plot-container"></div>
+
+    <!-- JavaScript code to create the plot -->
+    <script>
+        // Data for the plot
+        var data = [{
+            x: ['Human-generated', 'Computer-generated'],
+            y: [{{ human_reviews_count }}, {{ computer_reviews_count }}],
+            type: 'bar',
+            marker: {
+                color: ['blue', 'red']
+            }
+        }];
+
+        // Layout for the plot
+        var layout = {
+            title: 'Distribution of Human-generated and Computer-generated Reviews',
+            xaxis: {
+                title: 'Review Type'
+            },
+            yaxis: {
+                title: 'Number of Reviews'
+            }
+        };
+
+        // Plot the graph
+        Plotly.newPlot('plot-container', data, layout);
+    </script>
+</body>
+</html>
